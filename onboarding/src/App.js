@@ -8,9 +8,9 @@ import schema from './schema/formSchema'
 
 
 const initialFriends = [
- /*  {id: uuid(), name: 'Throckmorton', email:'sk8tercousin@hautmail.com', password: 'coolsk8'},
+  {id: uuid(), name: 'Throckmorton', email:'sk8tercousin@hautmail.com', password: 'coolsk8'},
   {id: uuid(), name: 'Hue Janus', email:'HueJ@hautmail.com', password: 'hole'},
-  {id: uuid(), name: 'Phil Mckracken', email:'Philcrack@hautmail.com', password: 'Davey Jones Locker'}, */
+  {id: uuid(), name: 'Phil Mckracken', email:'Philcrack@hautmail.com', password: 'Davey Jones Locker'},
 ]
 const initialFormValues = {
   name:'',
@@ -24,7 +24,7 @@ const initialFormErrors = {
  password: "",
   terms: "",
 };
-const initialDisabled = true;
+const initialDisabled = false;
 
 export default function App() {
   const [formValues, setFormValues] = useState(initialFormValues)
@@ -61,12 +61,14 @@ export default function App() {
       email: formValues.email.trim(),
       password: formValues.password.trim(),
     }
+    setFriends(...friends, newFriend)
   }
   
 
   useEffect(() => {
     schema.isValid(formValues).then((valid) => {
-      setDisabled(!valid);
+     setDisabled(!valid);
+     console.log(valid)
     });
   }, [formValues]);
 
@@ -80,7 +82,9 @@ export default function App() {
          disabled={disabled}
          errors={formErrors}
         />
-        {friends.map(fr => <div key = {fr.id}>{fr.name} {fr.email} {[fr.password], '*****'} </div>)
+        {friends.map(fr => <div key={fr.id}>
+          {fr.name} {fr.email} 
+        </div>)
         }
       </header>
     </div>
